@@ -1,8 +1,7 @@
 // import { fromEvent } from "rxjs";
 // import { throttleTime, scan, count, take, filter, map } from "rxjs/operators";
 
-import { Observable, from } from "rxjs";
-import { rxSubscriber } from "rxjs/internal-compatibility";
+import { Observable } from "rxjs";
 
 /** formEvent
  * */
@@ -80,4 +79,9 @@ import { rxSubscriber } from "rxjs/internal-compatibility";
 //     console.log(observe, '}}}}}||||');
 // }})
 
-var source = Observable.interval(500)
+import {interval} from 'rxjs'
+
+
+console.log(interval);
+
+let observable = interval(400)
