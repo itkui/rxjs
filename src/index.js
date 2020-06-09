@@ -1,7 +1,7 @@
 // import { fromEvent } from "rxjs";
 // import { throttleTime, scan, count, take, filter, map } from "rxjs/operators";
 
-import { Observable } from "rxjs";
+// import { Observable } from "rxjs";
 
 /** formEvent
  * */
@@ -79,9 +79,27 @@ import { Observable } from "rxjs";
 //     console.log(observe, '}}}}}||||');
 // }})
 
-import {interval} from 'rxjs'
+// import {interval} from 'rxjs'
 
 
-console.log(interval);
+// console.log(interval);
 
-let observable = interval(400)
+// let observable = interval(400)
+
+import { from, Subject } from 'rxjs';
+import { multicast } from 'rxjs/operators';
+ 
+const source = from([1, 2, 3]);
+const subject = new Subject();
+const multicasted = source.pipe(multicast(subject));
+ 
+// These are, under the hood, `subject.subscribe({...})`:
+multicasted.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+multicasted.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+ 
+// This is, under the hood, `source.subscribe(subject)`:
+multicasted.connect();
