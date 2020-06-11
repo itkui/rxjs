@@ -174,16 +174,14 @@ subject.next(3) */
 import { Observable, asyncScheduler, from } from 'rxjs';
 import { observeOn } from 'rxjs/operators';
 
-const observable = new Observable((observer) => {
-  observer.next(1);
-  observer.next(2);
-  observer.next(3);
-  observer.complete();
+const observable = new Observable((proxyObserver) => {
+  proxyObserver.next(1);
+  proxyObserver.next(2);
+  proxyObserver.next(3);
+  proxyObserver.complete();
 }).pipe(observeOn(asyncScheduler));
 
-console.log('just before subscribe');
-
-observable.subscribe({
+let finalObserver = {
   next(x) {
     console.log('got value ' + x);
   },
@@ -193,6 +191,10 @@ observable.subscribe({
   complete() {
     console.log('done');
   },
-});
+};
+
+console.log('just before subscribe');
+
+observable.subscribe(finalObserver);
 
 console.log('just after subscribe');
